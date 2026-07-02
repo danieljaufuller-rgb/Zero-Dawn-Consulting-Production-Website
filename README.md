@@ -1,6 +1,7 @@
 # React + TypeScript + Vite
 
 <!-- deploy-test: 2026-07-02 — pipeline validation commit, safe to ignore -->
+<!-- deploy-test: 2026-07-02 — second pipeline validation commit, safe to ignore -->
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
