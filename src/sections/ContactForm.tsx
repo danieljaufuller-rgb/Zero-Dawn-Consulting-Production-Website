@@ -5,9 +5,13 @@ import { Send, CheckCircle } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
 
+// Free form delivery via web3forms.com — submissions arrive at the email
+// the access key was created with (daniel@zerodawnconsulting.com).
+const WEB3FORMS_ACCESS_KEY = 'REPLACE_WITH_WEB3FORMS_ACCESS_KEY'
+
 export default function ContactForm() {
   const sectionRef = useRef<HTMLElement>(null)
-  const [formState, setFormState] = useState<'idle' | 'submitting' | 'success'>('idle')
+  const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -40,24 +44,32 @@ export default function ContactForm() {
     return () => ctx.revert()
   }, [])
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setFormState('submitting')
 
-    // Create mailto link with form data
-    const subject = encodeURIComponent(`New Contact Form Submission from ${formData.name}`)
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\nMessage:\n${formData.message}`
-    )
-    const mailtoLink = `mailto:daniel@zerodawnconsulting.com?subject=${subject}&body=${body}`
-
-    // Open email client
-    window.location.href = mailtoLink
-
-    // Show success state
-    setTimeout(() => {
-      setFormState('success')
-    }, 500)
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `New website enquiry from ${formData.name}`,
+          from_name: 'Zero Dawn Consulting Website',
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+        }),
+      })
+      const data = await response.json()
+      setFormState(data.success ? 'success' : 'error')
+    } catch {
+      setFormState('error')
+    }
   }
 
   const handleChange = (
@@ -101,6 +113,15 @@ export default function ContactForm() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Honeypot spam trap — hidden from real visitors */}
+            <input
+              type="checkbox"
+              name="botcheck"
+              tabIndex={-1}
+              autoComplete="off"
+              className="hidden"
+              aria-hidden="true"
+            />
             {/* Name */}
             <div>
               <label
@@ -179,6 +200,21 @@ export default function ContactForm() {
                 placeholder="Tell us about your project..."
               />
             </div>
+
+            {/* Error message */}
+            {formState === 'error' && (
+              <p className="text-sm font-light text-[#d4a04a] text-center">
+                Something went wrong sending your message. Please email us
+                directly at{' '}
+                <a
+                  href="mailto:daniel@zerodawnconsulting.com"
+                  className="underline hover:text-[#c8963e]"
+                >
+                  daniel@zerodawnconsulting.com
+                </a>
+                .
+              </p>
+            )}
 
             {/* Submit */}
             <button

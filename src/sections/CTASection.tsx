@@ -66,10 +66,14 @@ export default function CTASection() {
         {/* Fallback dark background */}
         <div className="absolute inset-0 bg-[#0a0a0a]" />
         <video
-          autoPlay
+          autoPlay={
+            typeof window === 'undefined' ||
+            !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+          }
           muted
           loop
           playsInline
+          preload="metadata"
           poster="/assets/hero-blossom.jpg"
           className="absolute inset-0 w-full h-full object-cover"
           src="/assets/cta-ambient.mp4"

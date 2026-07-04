@@ -9,49 +9,49 @@ const projects = [
   {
     name: 'Origins Coffee Roasters',
     description: 'Artisan coffee brand with rich digital experience',
-    image: '/assets/project-origins-real.jpg',
+    image: '/assets/project-origins-real.webp',
     url: 'https://origins-coffee-roasters.pages.dev/',
   },
   {
     name: 'YMAX Skills',
     description: 'EdTech platform with dynamic content',
-    image: '/assets/project-ymax-real.jpg',
+    image: '/assets/project-ymax-real.webp',
     url: 'https://ymax-skills-site.pages.dev/',
   },
   {
     name: 'Ventara',
     description: 'Technology procurement, simplified',
-    image: '/assets/project-ventara-real.jpg',
+    image: '/assets/project-ventara-real.webp',
     url: 'https://ventara.au/',
   },
   {
     name: 'Penrith Electrical Services',
     description: 'Local trade, professional presence',
-    image: '/assets/project-penrith-real.jpg',
+    image: '/assets/project-penrith-real.webp',
     url: 'https://penrith-electrical-services.pages.dev',
   },
   {
     name: 'Zoe Isaackson Law Firm',
     description: 'Legal expertise, elegant presentation',
-    image: '/assets/project-zoe-real.jpg',
+    image: '/assets/project-zoe-real.webp',
     url: 'https://zoe-isaackson-law-firm.pages.dev/',
   },
   {
     name: 'Ventara Concept',
     description: 'Dark-themed innovation showcase',
-    image: '/assets/project-ventara-black-real.jpg',
+    image: '/assets/project-ventara-black-real.webp',
     url: 'https://ventara-website-black.pages.dev/',
   },
   {
     name: 'Tribe41 Gym',
     description: 'Fitness brand with bold energy',
-    image: '/assets/project-tribe41-real.jpg',
+    image: '/assets/project-tribe41-real.webp',
     url: 'https://www.tribe41northmead.com/',
   },
   {
     name: 'Isaiah Jude Accounting',
     description: 'Financial services, trusted design',
-    image: '/assets/project-isaiah-real.jpg',
+    image: '/assets/project-isaiah-real.webp',
     url: 'https://isaiah-jude-accounting-firm.pages.dev/',
   },
 ]
@@ -189,7 +189,11 @@ export default function ProjectsCarousel() {
                   <div className="relative aspect-video overflow-hidden">
                     <img
                       src={project.image}
-                      alt={project.name}
+                      alt={`${project.name} website by Zero Dawn Consulting`}
+                      loading="lazy"
+                      decoding="async"
+                      width={1600}
+                      height={900}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent opacity-60" />
