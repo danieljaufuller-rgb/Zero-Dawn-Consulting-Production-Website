@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 // Free form delivery via web3forms.com — submissions arrive at the email
 // the access key was created with (daniel@zerodawnconsulting.com).
-const WEB3FORMS_ACCESS_KEY = 'REPLACE_WITH_WEB3FORMS_ACCESS_KEY'
+const WEB3FORMS_ACCESS_KEY = '29c6828b-de61-41b5-9936-0b297743f9ad'
 
 export default function ContactForm() {
   const sectionRef = useRef<HTMLElement>(null)
